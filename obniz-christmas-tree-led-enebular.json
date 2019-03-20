@@ -1,0 +1,471 @@
+[
+    {
+        "id": "5d093c92.1230c4",
+        "type": "inject",
+        "z": "527748fe.1cbb48",
+        "name": "着く",
+        "topic": "",
+        "payload": "[{\"io0\":true, \"io1\":false, \"io2\":true, \"io3\":false}]",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "x": 130,
+        "y": 120,
+        "wires": [
+            [
+                "e025c711.836418",
+                "864aee03.2a11a"
+            ]
+        ]
+    },
+    {
+        "id": "8e02c63b.9153c8",
+        "type": "inject",
+        "z": "527748fe.1cbb48",
+        "name": "消す",
+        "topic": "",
+        "payload": "[{\"io0\":false, \"io1\":false, \"io2\":false, \"io3\":false}]",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "x": 130,
+        "y": 160,
+        "wires": [
+            [
+                "864aee03.2a11a"
+            ]
+        ]
+    },
+    {
+        "id": "864aee03.2a11a",
+        "type": "websocket out",
+        "z": "527748fe.1cbb48",
+        "name": "obniz ws",
+        "server": "",
+        "client": "448267c6.5701a8",
+        "x": 800,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "7a2120c2.45cd2",
+        "type": "delay",
+        "z": "527748fe.1cbb48",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "2",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 360,
+        "y": 360,
+        "wires": [
+            [
+                "e025c711.836418"
+            ]
+        ]
+    },
+    {
+        "id": "e025c711.836418",
+        "type": "switch",
+        "z": "527748fe.1cbb48",
+        "name": "交互実行",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 260,
+        "y": 260,
+        "wires": [
+            [
+                "a04cfe17.77d05"
+            ],
+            [
+                "2eef695f.2e97c6"
+            ]
+        ]
+    },
+    {
+        "id": "a04cfe17.77d05",
+        "type": "change",
+        "z": "527748fe.1cbb48",
+        "name": "ON:0/1 OFF:2/3",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[{\"io0\":true, \"io1\":false, \"io2\":false, \"io3\":false}]",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 440,
+        "y": 260,
+        "wires": [
+            [
+                "864aee03.2a11a",
+                "5b463895.2f99b8"
+            ]
+        ]
+    },
+    {
+        "id": "2eef695f.2e97c6",
+        "type": "change",
+        "z": "527748fe.1cbb48",
+        "name": "OFF:0/1 ON:2/3",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[{\"io0\":false, \"io1\":false, \"io2\":true, \"io3\":false}]",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 440,
+        "y": 300,
+        "wires": [
+            [
+                "864aee03.2a11a",
+                "8e8b2b3e.7b49b8"
+            ]
+        ]
+    },
+    {
+        "id": "3c02b795.9aecb8",
+        "type": "inject",
+        "z": "527748fe.1cbb48",
+        "name": "起動",
+        "topic": "",
+        "payload": "true",
+        "payloadType": "bool",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "x": 130,
+        "y": 260,
+        "wires": [
+            [
+                "e025c711.836418"
+            ]
+        ]
+    },
+    {
+        "id": "5b463895.2f99b8",
+        "type": "change",
+        "z": "527748fe.1cbb48",
+        "name": "set false",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 260,
+        "wires": [
+            [
+                "7a2120c2.45cd2"
+            ]
+        ]
+    },
+    {
+        "id": "8e8b2b3e.7b49b8",
+        "type": "change",
+        "z": "527748fe.1cbb48",
+        "name": "set true",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 300,
+        "wires": [
+            [
+                "7a2120c2.45cd2"
+            ]
+        ]
+    },
+    {
+        "id": "b1311ea0.359c7",
+        "type": "debug",
+        "z": "527748fe.1cbb48",
+        "name": "デバッグ",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 580,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "a98f146a.eab518",
+        "type": "websocket in",
+        "z": "527748fe.1cbb48",
+        "name": "obniz ws",
+        "server": "",
+        "client": "448267c6.5701a8",
+        "x": 300,
+        "y": 480,
+        "wires": [
+            [
+                "b1311ea0.359c7"
+            ]
+        ]
+    },
+    {
+        "id": "fd028648.d19fa8",
+        "type": "http in",
+        "z": "527748fe.1cbb48",
+        "name": "",
+        "url": "/obniz_tree",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 440,
+        "wires": [
+            [
+                "b1311ea0.359c7",
+                "8cf7605f.a836c",
+                "113109b4.88d8d6"
+            ]
+        ]
+    },
+    {
+        "id": "8cf7605f.a836c",
+        "type": "http response",
+        "z": "527748fe.1cbb48",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 170,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "113109b4.88d8d6",
+        "type": "change",
+        "z": "527748fe.1cbb48",
+        "name": "チカチカ",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[{\"io\":{\"animation\":{\"name\":\"animation-1\",\"status\":\"loop\",\"states\":[{\"duration\":300,\"state\": {\"io0\":true,\"io1\":false,\"io2\":false,\"io3\":false}},{\"duration\":300,\"state\":{\"io0\":false,\"io1\":false,\"io2\":true,\"io3\":false}}]}}}]",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 300,
+        "y": 440,
+        "wires": [
+            [
+                "864aee03.2a11a",
+                "9eb77f2c.69213"
+            ]
+        ]
+    },
+    {
+        "id": "bae810a.c91caf",
+        "type": "inject",
+        "z": "527748fe.1cbb48",
+        "name": "チカチカ",
+        "topic": "",
+        "payload": "[{\"io\":{\"animation\":{\"name\":\"animation-1\",\"status\":\"loop\",\"states\":[{\"duration\":300,\"state\": {\"io0\":true,\"io1\":false,\"io2\":false,\"io3\":false}},{\"duration\":300,\"state\":{\"io0\":false,\"io1\":false,\"io2\":true,\"io3\":false}}]}}}]",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "x": 360,
+        "y": 80,
+        "wires": [
+            [
+                "864aee03.2a11a"
+            ]
+        ]
+    },
+    {
+        "id": "704dfabc.c2fe04",
+        "type": "inject",
+        "z": "527748fe.1cbb48",
+        "name": "チカチカ停止",
+        "topic": "",
+        "payload": "[{\"io\":{\"animation\":{\"name\":\"animation-1\",\"status\":\"pause\"}}}]",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "x": 370,
+        "y": 160,
+        "wires": [
+            [
+                "864aee03.2a11a"
+            ]
+        ]
+    },
+    {
+        "id": "59dc75fb.4c32ac",
+        "type": "inject",
+        "z": "527748fe.1cbb48",
+        "name": "チカチカ再開",
+        "topic": "",
+        "payload": "[{\"io\":{\"animation\":{\"name\":\"animation-1\",\"status\":\"resume\"}}}]",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "x": 370,
+        "y": 120,
+        "wires": [
+            [
+                "864aee03.2a11a"
+            ]
+        ]
+    },
+    {
+        "id": "9eb77f2c.69213",
+        "type": "delay",
+        "z": "527748fe.1cbb48",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "3",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 440,
+        "y": 440,
+        "wires": [
+            [
+                "f3c0fdf5.b1b2f"
+            ]
+        ]
+    },
+    {
+        "id": "f3c0fdf5.b1b2f",
+        "type": "change",
+        "z": "527748fe.1cbb48",
+        "name": "チカチカ停止",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "[{\"io\":{\"animation\":{\"name\":\"animation-1\",\"status\":\"pause\"}}}]",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 600,
+        "y": 440,
+        "wires": [
+            [
+                "864aee03.2a11a"
+            ]
+        ]
+    },
+    {
+        "id": "134fca02.e511c6",
+        "type": "comment",
+        "z": "527748fe.1cbb48",
+        "name": "デバッグ用",
+        "info": "",
+        "x": 120,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "71d61f2e.270c5",
+        "type": "comment",
+        "z": "527748fe.1cbb48",
+        "name": "通常チカチカ",
+        "info": "",
+        "x": 130,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "c30527d4.be4b58",
+        "type": "comment",
+        "z": "527748fe.1cbb48",
+        "name": "早いチカチカ",
+        "info": "",
+        "x": 130,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "448267c6.5701a8",
+        "type": "websocket-client",
+        "z": "",
+        "path": "wss://2.ws.obniz.io/obniz/xxxx-xxxx/ws/2",
+        "tls": "",
+        "wholemsg": "false"
+    }
+]
